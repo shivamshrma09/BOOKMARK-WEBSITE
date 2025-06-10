@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bookmark Manager</title>
+
+  <style type="text/css" media="all">
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .head {
+      background-color: black;
+      height: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: whitesmoke;
+    }
+
+    .inputsandbutton {
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+      gap: 10px;
+    }
+
+    .inputUrl {
+      width: 55vw;
+      border: 3px solid grey;
+      padding: 6px;
+    }
+
+    .button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 6px;
+      font-weight: bold;
+    }
+
+    .button1 {
+      background-color: #ff6347;
+      color: #fff;
+      padding: 6px;
+      font-weight: bold;
+    }
+
+    .output {
+      width: 86.5vw;
+      border: 3px solid grey;
+      height: 50px;
+      margin: 10px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+    }
+
+    .button2,
+    .button3 {
+      padding: 6px;
+      font-weight: bold;
+      width: 55px;
+      font-size: 15px;
+    }
+
+    .text {
+      flex: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      padding-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="head">
+    <h1>My Bookmarks</h1>
+  </div>
+
+  <div class="inputsandbutton">
+    <input type="url" class="inputUrl" placeholder="Enter URL" />
+    <button class="button" onclick="AddUrl()">Add<br>Bookmark</button>
+    <button class="button1" onclick="deleteAll()">Delete All<br>Bookmarks</button>
+  </div>
+
+  <div id="bookmarks"></div>
+
+  <script type="text/javascript">
+    function AddUrl() {
+      const urlInput = document.querySelector(".inputUrl");
+      const url = urlInput.value.trim();
+
+      if (!url) {
+        alert("Please enter a valid URL.");
+        return;
+      }
+
+      const bookmarkItem = document.createElement("div");
+      bookmarkItem.classList.add("output");
+      bookmarkItem.innerHTML = `
+        <p class="text">${url}</p>
+        <div>
+          <button class="button2" onclick="window.open('${url}', '_blank')">Visit</button>
+          <button class="button3" onclick="this.closest('.output').remove()">Delete</button>
+        </div>`;
+
+      document.getElementById("bookmarks").appendChild(bookmarkItem);
+      urlInput.value = "";
+    }
+
+    function deleteAll() {
+      document.getElementById("bookmarks").innerHTML = "";
+    }
+  </script>
+
+</body>
+
+</html>
